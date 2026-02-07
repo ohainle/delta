@@ -868,6 +868,14 @@ pub struct Opt {
     /// syntax highlighting.
     pub syntax_theme: Option<String>,
 
+    #[arg(long = "syntax-theme-light", value_name = "SYNTAX_THEME_LIGHT")]
+    /// The syntax-highlighting theme to use in light mode.
+    pub syntax_theme_light: Option<String>,
+
+    #[arg(long = "syntax-theme-dark", value_name = "SYNTAX_THEME_DARK")]
+    /// The syntax-highlighting theme to use in dark mode.
+    pub syntax_theme_dark: Option<String>,
+
     #[arg(long = "tabs", default_value = "8", value_name = "N")]
     /// The number of spaces to replace tab characters with.
     ///
