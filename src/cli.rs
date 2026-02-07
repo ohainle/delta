@@ -866,7 +866,28 @@ pub struct Opt {
     /// Use --show-syntax-themes to demo available themes. Defaults to the value of the BAT_THEME
     /// environment variable, if that contains a valid theme name. --syntax-theme=none disables all
     /// syntax highlighting.
+    ///
     pub syntax_theme: Option<String>,
+
+    #[arg(long = "syntax-theme-light", value_name = "SYNTAX_THEME_LIGHT")]
+    /// The syntax-highlighting theme to use when the terminal has a light background.
+    ///
+    /// Used when delta is in light mode (as set by the user or inferred from terminal
+    /// background).
+    /// Defaults to the value of the BAT_THEME_DARK environment variable.
+    /// Overridden by --syntax-theme.
+    ///
+    pub syntax_theme_light: Option<String>,
+
+    #[arg(long = "syntax-theme-dark", value_name = "SYNTAX_THEME_DARK")]
+    /// The syntax-highlighting theme to use when the terminal has a dark background.
+    ///
+    /// Used when delta is in dark mode (as set by the user or inferred from terminal
+    /// background).
+    /// Defaults to the value of the BAT_THEME_DARK environment variable.
+    /// Overridden by --syntax-theme.
+    ///
+    pub syntax_theme_dark: Option<String>,
 
     #[arg(long = "tabs", default_value = "8", value_name = "N")]
     /// The number of spaces to replace tab characters with.

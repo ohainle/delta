@@ -50,6 +50,8 @@ macro_rules! set_options {
                 "dark",
                 "light",
                 "syntax-theme",
+                "syntax-theme-light",
+                "syntax-theme-dark",
             ]);
             let expected_option_names: HashSet<_> = $expected_option_name_map
                 .values()
@@ -80,6 +82,12 @@ pub fn set_options(
     opt.navigate = opt.navigate || opt.env.navigate.is_some();
     if opt.syntax_theme.is_none() {
         opt.syntax_theme.clone_from(&opt.env.bat_theme);
+    }
+    if opt.syntax_theme_dark.is_none() {
+        opt.syntax_theme_dark.clone_from(&opt.env.bat_theme_dark);
+    }
+    if opt.syntax_theme_light.is_none() {
+        opt.syntax_theme_light.clone_from(&opt.env.bat_theme_light);
     }
 
     let option_names = cli::Opt::get_argument_and_option_names();
@@ -280,7 +288,7 @@ fn set__light__dark__syntax_theme__options(
     }
     validate_light_and_dark(opt);
     set_options!(
-        [syntax_theme],
+        [syntax_theme, syntax_theme_light, syntax_theme_dark],
         opt,
         &empty_builtin_features,
         git_config,

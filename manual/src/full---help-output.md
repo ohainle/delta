@@ -758,9 +758,24 @@ Options:
           The syntax-highlighting theme to use.
 
           Use --show-syntax-themes to demo available themes. Defaults to the
-          value of the BAT_THEME environment variable, if that contains a
-          valid theme name. --syntax-theme=none disables all syntax
-          highlighting.
+          value of the BAT_THEME environment variable, if that contains a valid
+          theme name. --syntax-theme=none disables all syntax highlighting.
+
+      --syntax-theme-light <SYNTAX_THEME_LIGHT>
+          The syntax-highlighting theme to use when the terminal has a light
+          background.
+
+          Used when delta is in light mode (as set by the user or inferred from
+          terminal background). Defaults to the value of the BAT_THEME_DARK
+          environment variable. Overridden by --syntax-theme.
+
+      --syntax-theme-dark <SYNTAX_THEME_DARK>
+          The syntax-highlighting theme to use when the terminal has a dark
+          background.
+
+          Used when delta is in dark mode (as set by the user or inferred from
+          terminal background). Defaults to the value of the BAT_THEME_DARK
+          environment variable. Overridden by --syntax-theme.
 
       --tabs <N>
           The number of spaces to replace tab characters with.
