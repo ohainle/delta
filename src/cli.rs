@@ -865,15 +865,26 @@ pub struct Opt {
     ///
     /// Use --show-syntax-themes to demo available themes. Defaults to the value of the BAT_THEME
     /// environment variable, if that contains a valid theme name. --syntax-theme=none disables all
-    /// syntax highlighting.
+    /// syntax highlighting. When delta is in light or dark mode (as set by the user or inferred
+    /// from BAT_THEME), this will be overriden by --syntax-theme-light or --syntax-theme-dark
+    /// respectively.
+    ///
     pub syntax_theme: Option<String>,
 
     #[arg(long = "syntax-theme-light", value_name = "SYNTAX_THEME_LIGHT")]
     /// The syntax-highlighting theme to use in light mode.
+    ///
+    /// When delta is in light mode (as set by the user or inferred from BAT_THEME), this
+    /// overrides the theme set by --syntax-theme.
+    ///
     pub syntax_theme_light: Option<String>,
 
     #[arg(long = "syntax-theme-dark", value_name = "SYNTAX_THEME_DARK")]
     /// The syntax-highlighting theme to use in dark mode.
+    ///
+    /// When delta is in dark mode (as set by the user or inferred from BAT_THEME), this overrides
+    /// the theme set by --syntax-theme.
+    ///
     pub syntax_theme_dark: Option<String>,
 
     #[arg(long = "tabs", default_value = "8", value_name = "N")]
