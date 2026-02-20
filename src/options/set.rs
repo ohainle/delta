@@ -83,6 +83,12 @@ pub fn set_options(
     if opt.syntax_theme.is_none() {
         opt.syntax_theme.clone_from(&opt.env.bat_theme);
     }
+    if opt.syntax_theme_dark.is_none() {
+        opt.syntax_theme_dark.clone_from(&opt.env.bat_theme_dark);
+    }
+    if opt.syntax_theme_light.is_none() {
+        opt.syntax_theme_light.clone_from(&opt.env.bat_theme_light);
+    }
 
     let option_names = cli::Opt::get_argument_and_option_names();
 

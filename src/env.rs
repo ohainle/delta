@@ -2,6 +2,8 @@ use std::env;
 
 const COLORTERM: &str = "COLORTERM";
 const BAT_THEME: &str = "BAT_THEME";
+const BAT_THEME_DARK: &str = "BAT_THEME_DARK";
+const BAT_THEME_LIGHT: &str = "BAT_THEME_LIGHT";
 const GIT_CONFIG_PARAMETERS: &str = "GIT_CONFIG_PARAMETERS";
 const GIT_PREFIX: &str = "GIT_PREFIX";
 const DELTA_FEATURES: &str = "DELTA_FEATURES";
@@ -13,6 +15,8 @@ const DELTA_PAGER: &str = "DELTA_PAGER";
 #[derive(Default, Clone)]
 pub struct DeltaEnv {
     pub bat_theme: Option<String>,
+    pub bat_theme_dark: Option<String>,
+    pub bat_theme_light: Option<String>,
     pub colorterm: Option<String>,
     pub current_dir: Option<std::path::PathBuf>,
     pub experimental_max_line_distance_for_naively_paired_lines: Option<String>,
@@ -28,6 +32,8 @@ impl DeltaEnv {
     /// Create a structure with current environment variable
     pub fn init() -> Self {
         let bat_theme = env::var(BAT_THEME).ok();
+        let bat_theme_dark = env::var(BAT_THEME_DARK).ok();
+        let bat_theme_light = env::var(BAT_THEME_LIGHT).ok();
         let colorterm = env::var(COLORTERM).ok();
         let experimental_max_line_distance_for_naively_paired_lines =
             env::var(DELTA_EXPERIMENTAL_MAX_LINE_DISTANCE_FOR_NAIVELY_PAIRED_LINES).ok();
@@ -49,6 +55,8 @@ impl DeltaEnv {
 
         Self {
             bat_theme,
+            bat_theme_dark,
+            bat_theme_light,
             colorterm,
             current_dir,
             experimental_max_line_distance_for_naively_paired_lines,
