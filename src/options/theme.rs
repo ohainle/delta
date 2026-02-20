@@ -140,44 +140,140 @@ mod tests {
     use crate::color;
     use crate::tests::integration_test_utils;
 
+    struct SyntaxThemeTestCase {
+        syntax_theme: Option<&'static str>,
+        syntax_theme_dark: Option<&'static str>,
+        syntax_theme_light: Option<&'static str>,
+        mode: Option<ColorMode>,
+        expected_syntax_theme: &'static str,
+        expected_mode: ColorMode,
+    }
+
     // TODO: Test influence of BAT_THEME env var. E.g. see utils::process::tests::FakeParentArgs.
     #[test]
     fn test_syntax_theme_selection() {
-        for (
+        let _cases = vec![
+            // when no theme or mode specifified,
+            // select the default dark theme and dark mode
+            SyntaxThemeTestCase {
+                syntax_theme: None,
+                syntax_theme_dark: None,
+                syntax_theme_light: None,
+                mode: None,
+                expected_syntax_theme: DEFAULT_DARK_SYNTAX_THEME,
+                expected_mode: Dark,
+            },
+            // when the specified theme is light and no mode is specified,
+            // select the specified theme and light mode
+            SyntaxThemeTestCase {
+                syntax_theme: Some("GitHub"),
+                syntax_theme_dark: None,
+                syntax_theme_light: None,
+                mode: None,
+                expected_syntax_theme: "GitHub",
+                expected_mode: Light,
+            },
+            // when the specified theme is dark and no mode is specified,
+            // select the specified theme and dark mode
+            SyntaxThemeTestCase {
+                syntax_theme: Some("Nord"),
+                syntax_theme_dark: None,
+                syntax_theme_light: None,
+                mode: None,
+                expected_syntax_theme: "Nord",
+                expected_mode: Dark,
+            },
+            // when no theme is specified and mode is specified as light,
+            // select the default light theme and light mode
+            SyntaxThemeTestCase {
+                syntax_theme: None,
+                syntax_theme_dark: None,
+                syntax_theme_light: None,
+                mode: Some(Light),
+                expected_syntax_theme: DEFAULT_LIGHT_SYNTAX_THEME,
+                expected_mode: Light,
+            },
+            // when no theme is specified and mode is specified as dark,
+            // select the default dark theme and dark mode
+            SyntaxThemeTestCase {
+                syntax_theme: None,
+                syntax_theme_dark: None,
+                syntax_theme_light: None,
+                mode: Some(Dark),
+                expected_syntax_theme: DEFAULT_DARK_SYNTAX_THEME,
+                expected_mode: Dark,
+            },
+            // when theme is specified and mode is specified
+            // select the specified theme and specified mode
+            SyntaxThemeTestCase {
+                syntax_theme: Some("GitHub"),
+                syntax_theme_dark: None,
+                syntax_theme_light: None,
+                mode: Some(Light),
+                expected_syntax_theme: "GitHub",
+                expected_mode: Light,
+            },
+            SyntaxThemeTestCase {
+                syntax_theme: Some("GitHub"),
+                syntax_theme_dark: None,
+                syntax_theme_light: None,
+                mode: Some(Light),
+                expected_syntax_theme: "GitHub",
+                expected_mode: Light,
+            },
+            SyntaxThemeTestCase {
+                syntax_theme: Some("Nord"),
+                syntax_theme_dark: None,
+                syntax_theme_light: None,
+                mode: Some(Light),
+                expected_syntax_theme: "Nord",
+                expected_mode: Light,
+            },
+            SyntaxThemeTestCase {
+                syntax_theme: Some("Nord"),
+                syntax_theme_dark: None,
+                syntax_theme_light: None,
+                mode: Some(Light),
+                expected_syntax_theme: "Nord",
+                expected_mode: Light,
+            },
+            // when theme is specified as 'none' and mode is not specified
+            // select the 'none' theme and default to dark mode
+            SyntaxThemeTestCase {
+                syntax_theme: Some("none"),
+                syntax_theme_dark: None,
+                syntax_theme_light: None,
+                mode: None,
+                expected_syntax_theme: "none",
+                expected_mode: Dark,
+            },
+            SyntaxThemeTestCase {
+                syntax_theme: Some("none"),
+                syntax_theme_dark: None,
+                syntax_theme_light: None,
+                mode: Some(Dark),
+                expected_syntax_theme: "none",
+                expected_mode: Dark,
+            },
+            SyntaxThemeTestCase {
+                syntax_theme: Some("None"),
+                syntax_theme_dark: None,
+                syntax_theme_light: None,
+                mode: Some(Light),
+                expected_syntax_theme: "none",
+                expected_mode: Light,
+            },
+        ];
+
+        for SyntaxThemeTestCase {
             syntax_theme,
             syntax_theme_dark,
             syntax_theme_light,
-            mode, // (--light, --dark)
+            mode,
             expected_syntax_theme,
             expected_mode,
-        ) in vec![
-            (None, None, None, None, DEFAULT_DARK_SYNTAX_THEME, Dark),
-            (Some("GitHub"), None, None, None, "GitHub", Light),
-            (Some("Nord"), None, None, None, "Nord", Dark),
-            (
-                None,
-                None,
-                None,
-                Some(Dark),
-                DEFAULT_DARK_SYNTAX_THEME,
-                Dark,
-            ),
-            (
-                None,
-                None,
-                None,
-                Some(Light),
-                DEFAULT_LIGHT_SYNTAX_THEME,
-                Light,
-            ),
-            (Some("GitHub"), None, None, Some(Light), "GitHub", Light),
-            (Some("GitHub"), None, None, Some(Dark), "GitHub", Dark),
-            (Some("Nord"), None, None, Some(Light), "Nord", Light),
-            (Some("Nord"), None, None, Some(Dark), "Nord", Dark),
-            (Some("none"), None, None, None, "none", Dark),
-            (Some("none"), None, None, Some(Dark), "none", Dark),
-            (Some("None"), None, None, Some(Light), "none", Light),
-        ] {
+        } in _cases
+        {
             let mut args = vec![];
             if let Some(syntax_theme) = syntax_theme {
                 args.push("--syntax-theme");
