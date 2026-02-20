@@ -87,6 +87,8 @@ _delta() {
 '--plus-style=[Style string for added lines]:STYLE: ' \
 '--right-arrow=[Text to display with a changed file path]:STRING: ' \
 '--syntax-theme=[The syntax-highlighting theme to use]:SYNTAX_THEME: ' \
+'--syntax-theme-dark=[The syntax-highlighting theme to use in dark mode]:SYNTAX_THEME_DARK: ' \
+'--syntax-theme-light=[The syntax-highlighting theme to use in light mode]:SYNTAX_THEME_LIGHT: ' \
 '--tabs=[The number of spaces to replace tab characters with]:N: ' \
 '--true-color=[Whether to emit 24-bit ("true color") RGB color codes]:auto|always|never:(auto always never)' \
 '--whitespace-error-style=[Style string for whitespace errors]:STYLE: ' \
