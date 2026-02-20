@@ -145,27 +145,51 @@ mod tests {
     fn test_syntax_theme_selection() {
         for (
             syntax_theme,
+            syntax_theme_dark,
+            syntax_theme_light,
             mode, // (--light, --dark)
             expected_syntax_theme,
             expected_mode,
         ) in vec![
-            (None, None, DEFAULT_DARK_SYNTAX_THEME, Dark),
-            (Some("GitHub"), None, "GitHub", Light),
-            (Some("Nord"), None, "Nord", Dark),
-            (None, Some(Dark), DEFAULT_DARK_SYNTAX_THEME, Dark),
-            (None, Some(Light), DEFAULT_LIGHT_SYNTAX_THEME, Light),
-            (Some("GitHub"), Some(Light), "GitHub", Light),
-            (Some("GitHub"), Some(Dark), "GitHub", Dark),
-            (Some("Nord"), Some(Light), "Nord", Light),
-            (Some("Nord"), Some(Dark), "Nord", Dark),
-            (Some("none"), None, "none", Dark),
-            (Some("none"), Some(Dark), "none", Dark),
-            (Some("None"), Some(Light), "none", Light),
+            (None, None, None, None, DEFAULT_DARK_SYNTAX_THEME, Dark),
+            (Some("GitHub"), None, None, None, "GitHub", Light),
+            (Some("Nord"), None, None, None, "Nord", Dark),
+            (
+                None,
+                None,
+                None,
+                Some(Dark),
+                DEFAULT_DARK_SYNTAX_THEME,
+                Dark,
+            ),
+            (
+                None,
+                None,
+                None,
+                Some(Light),
+                DEFAULT_LIGHT_SYNTAX_THEME,
+                Light,
+            ),
+            (Some("GitHub"), None, None, Some(Light), "GitHub", Light),
+            (Some("GitHub"), None, None, Some(Dark), "GitHub", Dark),
+            (Some("Nord"), None, None, Some(Light), "Nord", Light),
+            (Some("Nord"), None, None, Some(Dark), "Nord", Dark),
+            (Some("none"), None, None, None, "none", Dark),
+            (Some("none"), None, None, Some(Dark), "none", Dark),
+            (Some("None"), None, None, Some(Light), "none", Light),
         ] {
             let mut args = vec![];
             if let Some(syntax_theme) = syntax_theme {
                 args.push("--syntax-theme");
                 args.push(syntax_theme);
+            }
+            if let Some(syntax_theme_dark) = syntax_theme_dark {
+                args.push("--syntax-theme-dark");
+                args.push(syntax_theme_dark);
+            }
+            if let Some(syntax_theme_light) = syntax_theme_light {
+                args.push("--syntax-theme-light");
+                args.push(syntax_theme_light);
             }
             let is_true_color = true;
             if is_true_color {
