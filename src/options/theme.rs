@@ -174,8 +174,8 @@ mod tests {
             // select the specified theme and light mode
             SyntaxThemeTestCase {
                 syntax_theme: Some("GitHub"),
-                syntax_theme_dark: None,
-                syntax_theme_light: None,
+                syntax_theme_dark: Some("Solarized (dark)"),
+                syntax_theme_light: Some("Solarized (light)"),
                 mode: None,
                 expected_syntax_theme: "GitHub",
                 expected_mode: Light,
@@ -184,8 +184,8 @@ mod tests {
             // select the specified theme and dark mode
             SyntaxThemeTestCase {
                 syntax_theme: Some("Nord"),
-                syntax_theme_dark: None,
-                syntax_theme_light: None,
+                syntax_theme_dark: Some("Solarized (dark)"),
+                syntax_theme_light: Some("Solarized (light)"),
                 mode: None,
                 expected_syntax_theme: "Nord",
                 expected_mode: Dark,
@@ -200,6 +200,16 @@ mod tests {
                 expected_syntax_theme: DEFAULT_LIGHT_SYNTAX_THEME,
                 expected_mode: Light,
             },
+            // when only a light theme is specified and mode is specified as light,
+            // select the specified light theme and light mode
+            SyntaxThemeTestCase {
+                syntax_theme: None,
+                syntax_theme_dark: None,
+                syntax_theme_light: Some("Solarized (light)"),
+                mode: Some(Light),
+                expected_syntax_theme: "Solarized (light)",
+                expected_mode: Light,
+            },
             // when no theme is specified and mode is specified as dark,
             // select the default dark theme and dark mode
             SyntaxThemeTestCase {
@@ -210,12 +220,32 @@ mod tests {
                 expected_syntax_theme: DEFAULT_DARK_SYNTAX_THEME,
                 expected_mode: Dark,
             },
+            // when only a dark theme is specified and mode is specified as dark,
+            // select the specified dark theme and dark mode
+            SyntaxThemeTestCase {
+                syntax_theme: None,
+                syntax_theme_dark: Some("Solarized (dark)"),
+                syntax_theme_light: None,
+                mode: Some(Dark),
+                expected_syntax_theme: "Solarized (dark)",
+                expected_mode: Dark,
+            },
+            // when only light and dark themes are specified and mode is specified as dark,
+            // select the specified dark theme and dark mode
+            SyntaxThemeTestCase {
+                syntax_theme: None,
+                syntax_theme_dark: Some("Solarized (dark)"),
+                syntax_theme_light: Some("Solarized (light)"),
+                mode: Some(Dark),
+                expected_syntax_theme: "Solarized (dark)",
+                expected_mode: Dark,
+            },
             // when theme is specified and mode is specified
             // select the specified theme and specified mode
             SyntaxThemeTestCase {
                 syntax_theme: Some("GitHub"),
-                syntax_theme_dark: None,
-                syntax_theme_light: None,
+                syntax_theme_dark: Some("Solarized (dark)"),
+                syntax_theme_light: Some("Solarized (light)"),
                 mode: Some(Light),
                 expected_syntax_theme: "GitHub",
                 expected_mode: Light,
@@ -238,8 +268,8 @@ mod tests {
             },
             SyntaxThemeTestCase {
                 syntax_theme: Some("Nord"),
-                syntax_theme_dark: None,
-                syntax_theme_light: None,
+                syntax_theme_dark: Some("Solarized (dark)"),
+                syntax_theme_light: Some("Solarized (light)"),
                 mode: Some(Light),
                 expected_syntax_theme: "Nord",
                 expected_mode: Light,
@@ -256,8 +286,24 @@ mod tests {
             },
             SyntaxThemeTestCase {
                 syntax_theme: Some("none"),
+                syntax_theme_dark: Some("Solarized (dark)"),
+                syntax_theme_light: Some("Solarized (light)"),
+                mode: None,
+                expected_syntax_theme: "none",
+                expected_mode: Dark,
+            },
+            SyntaxThemeTestCase {
+                syntax_theme: Some("none"),
                 syntax_theme_dark: None,
                 syntax_theme_light: None,
+                mode: Some(Dark),
+                expected_syntax_theme: "none",
+                expected_mode: Dark,
+            },
+            SyntaxThemeTestCase {
+                syntax_theme: Some("none"),
+                syntax_theme_dark: Some("Solarized (dark)"),
+                syntax_theme_light: Some("Solarized (light)"),
                 mode: Some(Dark),
                 expected_syntax_theme: "none",
                 expected_mode: Dark,
