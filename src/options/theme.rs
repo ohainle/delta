@@ -81,21 +81,14 @@ fn get_color_mode_and_syntax_theme_name(
     match (syntax_theme, mode) {
         (Some(theme), None) => (color_mode_from_syntax_theme(theme), theme.to_string()),
         (Some(theme), Some(mode)) => (mode, theme.to_string()),
-        (None, None) => (Dark, DEFAULT_DARK_SYNTAX_THEME.to_string()),
-        (None, Some(Dark)) => {
-            if let Some(syntax_theme_dark) = syntax_theme_dark {
-                (Dark, syntax_theme_dark.to_string())
-            } else {
-                (Dark, DEFAULT_DARK_SYNTAX_THEME.to_string())
-            }
+        (None, Some(Dark)) if let Some(syntax_theme_dark) = syntax_theme_dark => {
+            (Dark, syntax_theme_dark.to_string())
         }
-        (None, Some(Light)) => {
-            if let Some(syntax_theme_light) = syntax_theme_light {
-                (Light, syntax_theme_light.to_string())
-            } else {
-                (Light, DEFAULT_LIGHT_SYNTAX_THEME.to_string())
-            }
+        (None, None | Some(Dark)) => (Dark, DEFAULT_DARK_SYNTAX_THEME.to_string()),
+        (None, Some(Light)) if let Some(syntax_theme_light) = syntax_theme_light => {
+            (Light, syntax_theme_light.to_string())
         }
+        (None, Some(Light)) => (Light, DEFAULT_LIGHT_SYNTAX_THEME.to_string()),
     }
 }
 
